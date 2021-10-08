@@ -11,6 +11,12 @@ module.exports = app => {
         Usuario.buscaPorId(id, res)
     })
 
+    app.post('/login', (req, res) => {
+        console.log("deu post autentica")
+        const usuario = req.body
+        Usuario.autentica(usuario, res)
+    }) 
+
     app.post('/usuarios', (req, res) => {
         console.log("deu post")
        const usuario = req.body

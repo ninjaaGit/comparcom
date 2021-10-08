@@ -6,12 +6,11 @@ conexao.connect(erro => {
     if(erro) {
         console.log(erro)
     } else {
-        console.log('conectado com sucesso')
         
         Tabelas.init(conexao)
         
         const app = customExpress()
 
-        app.listen(5000, () => console.log('Servidor rodando na porta 5000'))
+        app.listen(5000, () => console.log('Link Start!'))
     }
 })

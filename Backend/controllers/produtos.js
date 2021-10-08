@@ -15,6 +15,13 @@ module.exports = app => {
        const Produtos = req.body
 
         Produtos.adiciona(Produtos, res)
+    })
+    
+    app.post('/produtosLoga', (req, res) => {
+        console.log("deu post autentica")
+        const produto = req.body
+
+        Produto.autentica(produto, res)
     }) 
 
     app.patch('/produtos/:id', (req, res) => {

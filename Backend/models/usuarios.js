@@ -1,56 +1,43 @@
+
 const conexao = require('../infraestrutura/conexao')
 
 class Usuario {
     adiciona(usuario, res) {
-        const nomeEhValido = usuario.nome.length >= 5
-        const enderecoEhValido = usuario.email.length >= 5
-        const senhaEhValida = usuario.senhaHash.length >= 5
 
-        const validacoes = [
-            {
-                nome: 'nome',
-                valido: nomeEhValido,
-                mensagem: 'O nome deve ter no mínimo 5 digitos'
-            },
-            {
-                nome: 'senha',
-                valido: senhaEhValida,
-                mensagem: 'A senha deve ter no mínimo 5 digitos'
-            },
-            {
-                nome: 'endereco',
-                valido: enderecoEhValido,
-                mensagem: 'O endereco deve ter no mínimo 5 digitos'
+        const sql = 'INSERT INTO Usuarios SET ?'
+
+        conexao.query(sql, usuario, (erro, resultados) => {
+            if (erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(201).json(usuario)
+                console.log(usuario)
             }
-        ]
+        })
+    }
 
-        const erros = validacoes.filter(campo => !campo.valido)
-        const existemErros = erros.length
-
-        if(existemErros) {
-            res.status(400).json(erros)
-        } else {
-            
-            const sql = 'INSERT INTO Usuarios SET ?'
-
-            conexao.query(sql, usuario, (erro, resultados) => {
-                if(erro) {
-                    res.status(400).json(erro)
-                } else {
-                    res.status(201).json(usuario)
-                }
-            })
-        }
+    autentica(usuario, res) {
+        const sql = `SELECT nome, rua, bairro, numero, cpf FROM Usuarios WHERE cpf="${usuario.cpf}" and senha="${usuario.senha}"`
+        console.log(usuario.cpf, usuario.senha)
+        conexao.query(sql, usuario, (erro, resultados) => {
+            if (resultados.length > 0) {
+                console.log(resultados);
+                res.status(201).json(resultados)
+            } else {
+                res.status(400)
+            }
+        })
     }
 
     lista(res) {
         const sql = 'SELECT * FROM Usuarios'
 
         conexao.query(sql, (erro, resultados) => {
-            if(erro) {
+            if (erro) {
                 res.status(400).json(erro)
             } else {
                 res.status(200).json(resultados)
+
             }
         })
     }
@@ -60,7 +47,7 @@ class Usuario {
 
         conexao.query(sql, (erro, resultados) => {
             const usuario = resultados[0]
-            if(erro) {
+            if (erro) {
                 res.status(400).json(erro)
             } else {
                 res.status(200).json(usuario)
@@ -68,14 +55,14 @@ class Usuario {
         })
     }
 
-    altera(id, valores, res) {    
-        const sql = 'UPDATE Produtos SET ? WHERE id=?'
+    altera(id, valores, res) {
+        const sql = 'UPDATE Usuarios SET ? WHERE id=?'
 
         conexao.query(sql, [valores, id], (erro, resultados) => {
-            if(erro) {
+            if (erro) {
                 res.status(400).json(erro)
             } else {
-                res.status(200).json({...valores, id})
+                res.status(200).json({ ...valores, id })
             }
         })
     }
@@ -84,10 +71,10 @@ class Usuario {
         const sql = 'DELETE FROM Usuarios WHERE id=?'
 
         conexao.query(sql, id, (erro, resultados) => {
-            if(erro) {
+            if (erro) {
                 res.status(400).json(erro)
             } else {
-                res.status(200).json({id})
+                res.status(200).json({ id })
             }
         })
     }
