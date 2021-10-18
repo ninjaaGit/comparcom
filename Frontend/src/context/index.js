@@ -6,6 +6,21 @@ export const IndexContext = createContext();
 
 
 export default function IndexProvider({ children }) {
+    const [user, setUser] = useState(null)
+    
+
+    React.useEffect ( async() => {
+      try{
+        console.log("validou")
+        const res = await api.get('/user', {withCredentials: true})
+        console.log(res.data)
+        setUser(res.data)
+      }
+      catch(err){
+        console.log(err)
+      }
+    },[])
+
 
     const handleLogout = async() => {
       try{
@@ -55,7 +70,7 @@ export default function IndexProvider({ children }) {
       }
     }
 
-return (<IndexContext.Provider value={{handleLogin,handleCadastro,handleLogout}}>
+return (<IndexContext.Provider value={{handleLogin,handleCadastro,handleLogout,user}}>
     {children}
   </IndexContext.Provider>);
 }
