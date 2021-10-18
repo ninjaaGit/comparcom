@@ -10,6 +10,7 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { InputBase } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { IndexContext } from "../../context/index";
 import { Redirect } from "react-router-dom";
 import "./styles.scss";
@@ -17,24 +18,20 @@ import "./styles.scss";
 
 
 function Header() {
+  let history = useHistory();
+  const { handleLogout} = React.useContext(IndexContext);
 
-  const { logado, handleLogin, user, setUser} = React.useContext(IndexContext);
-
-  const verifica = async (event) => {
+  const desloga = async (event) => {
     event.preventDefault();
-    if(logado === true) {
-      return <Redirect to='/perfil' />
-    }
-    if(logado === false) {
-      return <Redirect to='/login' />
-    }
+    handleLogout()
   }
-
+  
   return (
     <div className="navbar">
       <AppBar position="static">
         <Toolbar className="header">
-        <Link to="/"><LogoArcom className="title"></LogoArcom></Link>
+          <button onClick = {desloga}>Logout</button>
+          <a onClick = {() => history.push("/")}><LogoArcom className="title"></LogoArcom></a>
           <Paper component="form" className="input searchbar">
             <InputBase className="input" placeholder="Pesquisar mercadoria." />
             <Link><IconButton
@@ -46,16 +43,12 @@ function Header() {
             </Link>
           </Paper>
           <div>
-              <Link to="/login" className="login">
-              <Button color="inherit" onClick = {() => {verifica}}>
+              <Button color="inherit" onClick = {() => history.push("/login")}>
                 <AccountBoxIcon></AccountBoxIcon>
               </Button>
-              </Link>
-              <Link to="/carrinho" className="carrinho">
-                <Button color="inherit">
+                <Button color="inherit" onClick = {() => history.push("/carrinho")}>
                   <ShoppingCartIcon></ShoppingCartIcon>
                 </Button>
-              </Link>
           </div>
         </Toolbar>
       </AppBar>

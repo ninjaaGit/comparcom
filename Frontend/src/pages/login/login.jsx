@@ -1,35 +1,39 @@
 import React from 'react';
 import "../login/style.css";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import {IndexContext} from '../../context/index'
 
 
 function Login() {
+  let history = useHistory();
+  const  [ senha, setSenha] = useState('');
+  const  [cpf , setCpf]  = useState('');
 
-  const { logado, handleLogin,user,setUser } = React.useContext(IndexContext);
+  const { logado, handleLogin } = React.useContext(IndexContext);
   
 
   const enviaForm = async (event) => {
-    handleLogin(user.cpf,user.senha)
     event.preventDefault();
+    const dados = ({cpf,senha})
+    handleLogin(dados)
 
   }
 
   return (
     <div className="login_body">
-      <Link to="/" classname="cancel">Cancelar</Link>
+      <button onClick = {() => history.push("/")}>Cancelar</button>
       <div className="login_main">
         <h1 className="login_title"> Compre Arcom </h1>
         <form className="loginForm" onSubmit={enviaForm}>
-          <input name="usuario" className="loginInput" onChange={(e) => {setUser({...user,cpf:e.target.value})}} placeholder="CPF"></input>
-          <input name="senha" className="loginInput" onChange={(e) =>  {setUser({...user,senha:e.target.value})}} type="password" placeholder="Senha"></input>
+          <input name="usuario" className="loginInput" onChange={(e) => setCpf(e.target.value) } placeholder="CPF"></input>
+          <input name="senha" className="loginInput" onChange={(e) =>  setSenha(e.target.value)} type="password" placeholder="Senha"></input>
           <button type="submit" variant="contained" color="success" className="login_entrar">Entrar</button>
           <Link to="/register" className="cadastro">
             Cadastre-se
           </Link>
         </form>
-        
       </div>
     </div>
   );
