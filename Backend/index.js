@@ -3,6 +3,9 @@ const ep = express();
 const dotenv = require('dotenv')
 const connection = require("./infraestrutura/conexao");
 const User = require("./infraestrutura/tabelas");
+const Produtos = require("./infraestrutura/tabelaProdutos");
+const Categorias = require("./infraestrutura/tabelaCategorias");
+const Carrinho = require("./infraestrutura/tabelaCart");
 const bcrypt = require('bcrypt');
 const cookieParser = require("cookie-parser");
 var jwt = require('jsonwebtoken');
@@ -25,12 +28,13 @@ function verifyJWT(req, res, next){
         return res.status(401).send({ auth: false, message: 'Token não informado.' }); 
     
         jwt.verify(token, chavePrivada, (err, userJWT) => { 
-        if (err) 
+        if (err)
+
             return res.status(500).send({ auth: false, message: 'Token inválido.' }); 
         
         req.userJWT = userJWT; 
-        console.log("User Id: " + userJWT   )
-        next(); 
+        next();    
+        
     }); 
 }
 
@@ -40,35 +44,56 @@ ep.get("/user",verifyJWT, async (req, res) => {
     res.json(userWithCpf.dataValues);
 })
 
+ep.get("/product", async (req, res) => {
+    const produtoCriado = await Produtos.findAll().catch((err) =>{console.log(err);});
+    res.json(produtoCriado);
+})
+
+ep.post("/criarprod" , async (req, res) => {
+    const {nomeProduto, valor, urlImg, descricao, quantidade, categoria} = req.body
+    const produtoCriado = await Produtos.findOne({ where: {nomeProduto}  }).catch((err) =>{console.log(err);});
+    const product = {nomeProduto, valor, urlImg, descricao, quantidade, categoria}
+
+    if(produtoCriado){ 
+        return res.json({ message: "Este produto ja existe!"})
+    }
+
+    else{
+    const resposta = await Produtos.create({ nomeProduto, valor, urlImg, descricao, quantidade, categoria});
+        return res.json({nomeProduto,valor,descricao,quantidade,categoria})
+    }
+});
+
 ep.post("/register",  async (req, res) => {
-    const {nome, cpf, senha, rua, bairro, numero} = req.body
+    const {nome, cpf, passwd, rua, bairro, numero} = req.body
     const userWithCpf = await User.findOne({ where: {cpf}  }).catch((err) =>{console.log(err);});
-    const usuario = {nome, cpf, senha, rua, bairro, numero}
 
     if(userWithCpf){ 
         return res.json({ message: "Email ou usuiario ja existe!"})
     }
 
-    if(passwd == passwd1) {
-
-    }
+    
 
     else{
-    const resposta = await User.create({ nome, cpf, senha, rua, bairro, numero });
+        console.log(passwd)
+        let senha = await bcrypt.hash(passwd, 8);
+        const resposta = await User.create({ nome, cpf, senha, rua, bairro, numero });
         return res.json({nome,rua,bairro,numero})
     }
 });
 
 ep.get('/logout',verifyJWT, function(req, res) { 
-    console.log("logout");
     res.clearCookie("access_token").send('users.dataValues')
 });
 
 ep.post("/login", async (req, res) => {
     const {cpf,senha} = (req.body)
 
-    const userWithCpf = await User.findOne({ where: {cpf,senha}  }).catch((err) =>{console.log(err);});
-    if (userWithCpf){
+    const userWithCpf = await User.findOne({ where: {cpf}  }).catch((err) =>{console.log(err);});
+    const password = await bcrypt.compare(senha, userWithCpf.senha);
+
+    console.log(senha, password)
+    if (userWithCpf && password){
         const token = jwt.sign({ id: userWithCpf.dataValues.id, role: "captain" }, "YOUR_SECRET_KEY", { expiresIn: '1h' });
         return res
           .cookie("access_token", token, {
@@ -83,7 +108,25 @@ ep.post("/login", async (req, res) => {
         return res
             .status(401).send('Login inválido!')
     }
-
   });
+
+ep.post("/addcarrinho",verifyJWT, async (req, res) => {
+    const id_usuario = (req.userJWT.id)
+    const {id_produto} = (req.body)
+    let quantidade = 2
+    const pesquisaCarrinho = await Carrinho.findOne({ where: {id_usuario,id_produto}  }).catch((err) =>{console.log(err);});
+    if(!pesquisaCarrinho){
+        const resposta = await Carrinho.create({ id_produto, id_usuario, quantidade});
+        res.json(resposta);
+    }
+    if(pesquisaCarrinho){
+        // console.log(parseInt(pesquisaCarrinho.dataValues.quantidade))
+        // const teste =  1 + parseInt(pesquisaCarrinho.dataValues.quantidade)
+        const resp = await Carrinho.update({ id_produto, id_usuario, quantidade});
+        res.json(resp);
+    }
+    
+    
+})
 
 ep.listen(5000)

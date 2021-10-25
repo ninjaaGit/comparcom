@@ -1,11 +1,11 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header/Header";
-import Card from "../../components/Cards/cardProduto/cardProduto";
-import { Link } from "react-router-dom";
+import Footer from "../../../components/Footer/Footer";
+import Header from "../../../components/Header/Header";
+import Card from "../../../components/Cards/cardProduto/cardProduto";
 
 const Alimentos = () => {
+
   return (
     <div>
       <header>

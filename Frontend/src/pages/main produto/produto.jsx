@@ -5,12 +5,6 @@ import { Redirect } from 'react-router-dom';
 
 function Produto() {
 
-  const userLogado = localStorage.getItem('logado')
-  if(userLogado === false || userLogado == null) {
-    console.log("Voce nao esta logado")
-    return <Redirect to="/" />
-  }
-
   return (
     <>
       <div className="produtoMain">

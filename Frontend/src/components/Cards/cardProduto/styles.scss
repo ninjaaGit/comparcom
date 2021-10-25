@@ -27,29 +27,15 @@
     width: 60%;
 }
 
-.cardButton {
-    height: 50px;
-}
-
-.cardButton > button {
-    width: 20%;
-    height: 100%;
-    border: solid 1px #777777;
-    background-color: white;
-    border-radius: 100px;
-    font-size: 1rem;
-}
-
-.cardButton > input {
-    width: 30%;
-    height: 100%;
-    border: solid 1px #777777;
-    border-radius: 100px;
-    margin: 0 1rem;
-    outline: none;
-    box-sizing: border-box;
-    text-align: center;
-    font-size: 1rem;
+.cardB {    
+    height: 27px;
+    cursor: pointer;
+    border: solid 0.7px #acacac;
+    border-radius: 0.6rem;
+    background-color: #FFFF;
+    font-size: 95%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 a:-webkit-any-link {

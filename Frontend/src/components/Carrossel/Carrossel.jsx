@@ -1,16 +1,16 @@
 import './styles.scss'
 
-function scrollLeft(){
-    var carrossel = document.getElementById('carrossel');
-    scrollLeft = carrossel.scrollLeft;
-    carrossel.scroll((scrollLeft - 1180), 0);
-  }
+// function scrollLeft(){
+//     var carrossel = document.getElementById('carrossel');
+//     scrollLeft = carrossel.scrollLeft;
+//     carrossel.scroll((scrollLeft - 1180), 0);
+//   }
 
-function scrollRight(){
-    var carrossel = document.getElementById('carrossel');
-    scrollLeft = carrossel.scrollLeft;
-    carrossel.scroll((scrollLeft + 1180), 0);
-  }
+// function scrollRight(){
+//     var carrossel = document.getElementById('carrossel');
+//     scrollLeft = carrossel.scrollLeft;
+//     carrossel.scroll((scrollLeft + 1180), 0);
+//   }
 
 function Carrossel() {
     return (

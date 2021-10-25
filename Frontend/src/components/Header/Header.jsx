@@ -10,20 +10,22 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { InputBase } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { IndexContext } from "../../context/index";
-import { Redirect } from "react-router-dom";
 import "./styles.scss";
 
 
 
-function Header() {
-  let history = useHistory();
-  const { handleLogout} = React.useContext(IndexContext);
 
+function Header(props) {
+  let history = useHistory();
+  const {handleLogout, handleSearchUser, user, redirect, loading, select, setSelect} = React.useContext(IndexContext);
+  console.log(user)
   const desloga = async (event) => {
     event.preventDefault();
     handleLogout()
+    window.location.reload(true)
   }
   
   return (
@@ -43,7 +45,7 @@ function Header() {
             </Link>
           </Paper>
           <div>
-              <Button color="inherit" onClick = {() => history.push("/login")}>
+              <Button color="inherit" onClick = {handleSearchUser}>
                 <AccountBoxIcon></AccountBoxIcon>
               </Button>
                 <Button color="inherit" onClick = {() => history.push("/carrinho")}>
@@ -55,14 +57,18 @@ function Header() {
       <AppBar position="static">
         <div className="categorias">
           <div className="innerCategories">
-            <button className="buttons">PROMOÇÕES</button>
-            <button className="buttons">BAZAR & UTILIDADES</button>
-            <button className="buttons">HIGIENE & BELEZA</button>
-            <button className="buttons">
-              MATERIAL DE CONTRUÇÃO & ELÉTRICO
-            </button>
-            <button className="buttons">MATERIAL ESCOLAR & ESCRITÓRIO</button>
-            <Link to="/alimentos"><button className="buttons">PRODUTOS ALIMENTÍCIOS</button></Link>
+            <button onClick={() => {
+              history.push("/"); setSelect("0")}} className="buttons">PROMOÇÕES</button>
+            <button onClick={() => {
+              history.push("/"); setSelect("1")}} className="buttons">BAZAR & UTILIDADES</button>
+            <button onClick={() => {
+              history.push("/"); setSelect("2")}} className="buttons">HIGIENE & BELEZA</button>
+            <button onClick={() => {
+              history.push("/"); setSelect("3")}} className="buttons">MATERIAL DE CONTRUÇÃO & ELÉTRICO</button>
+            <button onClick={() => {
+              history.push("/"); setSelect("4")}} className="buttons">MATERIAL ESCOLAR & ESCRITÓRIO</button>
+            <button onClick={() => {
+              history.push("/"); setSelect("5")}} className="buttons">PRODUTOS ALIMENTÍCIOS</button>
           </div>
         </div>
       </AppBar>

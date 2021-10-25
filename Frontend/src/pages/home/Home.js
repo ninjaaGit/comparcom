@@ -3,36 +3,30 @@ import Container from "@material-ui/core/Container";
 import Footer from "../../components/Footer/Footer";
 import Card from "../../components/Cards/cardProduto/cardProduto";
 import Header from "../../components/Header/Header";
-import Carrossel from "../../components/Carrossel/Carrossel";
+import { IndexContext } from "../../context/index";
+import CircularProgress from '@mui/material/CircularProgress';
 import "./styles.scss";
 import '../../static/App.scss'
 
 const Home = () => {
+  const { product, user, loading, select, setSelect } = React.useContext(IndexContext);
+  const [ filtro, setFiltro] = React.useState(product ? product : []);
+
   return (
     <div id="App">
-      <Header />
+      <Header/>
       <Container>
         <main>
           <div>
-            <Carrossel />
-
+            {/* <Carrossel /> */}
             <h2>Produtos</h2>
-
             <div className="cardDiv">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <Card/>
             </div>
           </div>
-          
         </main>
       </Container>
-      <Footer />
+      <Footer/>
     </div>
   );
 };
