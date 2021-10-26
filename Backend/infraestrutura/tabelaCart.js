@@ -9,11 +9,11 @@ const carrinho = conection.define('carrinho',{
         autoIncrement: true
     },
     id_usuario: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     quantidade: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING, 
         allowNull: false
     },
 });

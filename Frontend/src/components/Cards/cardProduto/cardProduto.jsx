@@ -15,8 +15,16 @@ function Card(props) {
 
         setProduct((a) => {
             const qtd = parseInt(a[index].quantidade)
-            a[index].quantidade=qtd - 1
-            return([...a])
+
+
+            if(a[index].quantidade === 0) {
+                return([...a])
+            }
+            else{
+                a[index].quantidade=qtd - 1
+                return([...a])
+            }
+
         })
         // val -= 1
         // document.getElementById('input').value = val;
@@ -57,9 +65,9 @@ function Card(props) {
                 <Link to="/produtos"><img className="cardImg" src={e.urlImg}></img></Link>
             </div>
             <p><Link to="/produtos">{e.nomeProduto}</Link></p>
-            <div className="cardButton2">
+            <div className="cardB2">
                 <button onClick={() => decrease(index)}>-</button>
-                <input id="input" min="0" type="number" value={e.quantidade} readonly />
+                <input id="input" min="0" type="number" value={e.quantidade} />
                 <button onClick={() => increase(index)}>+</button>
             </div>
         </Paper>
@@ -72,12 +80,10 @@ function Card(props) {
                         <Link to="/produtos"><img className="cardImg" src={e.urlImg}></img></Link>
                     </div>
                     <p><Link to="/produtos">{e.nomeProduto}</Link></p>
-                    <div >
-                    <div className="cardButton2">
+                    <div className="cardB2">
                         <button onClick={decrease}>-</button>
-                        <input id="input" min="0" type="number" value="0" readonly />
+                        <input id="input" min="0" type="number" value={e.quantidade}/>
                         <button onClick={increase}>+</button>
-                    </div>
                     </div>
                 </Paper>
             )
