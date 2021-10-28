@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import Card from "../../components/Cards/cardProduto/cardProduto";
 import Header from "../../components/Header/Header";
 import { IndexContext } from "../../context/index";
+// import Carrossel from "../../components/Carrossel/Carrossel"
 import CircularProgress from '@mui/material/CircularProgress';
 import "./styles.scss";
 import '../../static/App.scss'

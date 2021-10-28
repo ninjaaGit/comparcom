@@ -110,23 +110,35 @@ ep.post("/login", async (req, res) => {
     }
   });
 
-ep.post("/addcarrinho",verifyJWT, async (req, res) => {
+    ep.post("/addcarrinho",verifyJWT, async (req, res) => {
+        const id_usuario = (req.userJWT.id)
+        const {id_produto} = (req.body)
+        let quantidade = 1
+        const pesquisaCarrinho = await Carrinho.findOne({ where: {id_usuario,id_produto}  }).catch((err) =>{console.log(err);});
+        if(!pesquisaCarrinho){
+            const resposta = await Carrinho.create({ id_produto, id_usuario, quantidade});
+            res.json(resposta);
+        }
+        if(pesquisaCarrinho){
+            // console.log(parseInt(pesquisaCarrinho.dataValues.quantidade))
+            // const teste =  1 + parseInt(pesquisaCarrinho.dataValues.quantidade)
+            const resp = await Carrinho.update({ id_produto, id_usuario, quantidade});
+            res.json(resp);
+        }
+    
+
+    
+})
+
+ep.get("/carrinho",verifyJWT, async (req, res) => {
     const id_usuario = (req.userJWT.id)
-    const {id_produto} = (req.body)
-    let quantidade = 2
-    const pesquisaCarrinho = await Carrinho.findOne({ where: {id_usuario,id_produto}  }).catch((err) =>{console.log(err);});
+    const pesquisaCarrinho = await Carrinho.findAll();
     if(!pesquisaCarrinho){
         const resposta = await Carrinho.create({ id_produto, id_usuario, quantidade});
         res.json(resposta);
     }
     if(pesquisaCarrinho){
-        // console.log(parseInt(pesquisaCarrinho.dataValues.quantidade))
-        // const teste =  1 + parseInt(pesquisaCarrinho.dataValues.quantidade)
-        const resp = await Carrinho.update({ id_produto, id_usuario, quantidade});
-        res.json(resp);
-    }
-    
-    
-})
+        res.json(pesquisaCarrinho);
+    }})
 
 ep.listen(5000)

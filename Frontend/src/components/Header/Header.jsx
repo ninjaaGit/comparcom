@@ -60,15 +60,15 @@ function Header(props) {
             <button onClick={() => {
               history.push("/"); setSelect("0")}} className="buttons">PROMOÇÕES</button>
             <button onClick={() => {
-              history.push("/"); setSelect("1")}} className="buttons">BAZAR & UTILIDADES</button>
+              history.push("/"); setSelect("4")}} className="buttons">BAZAR & UTILIDADES</button>
             <button onClick={() => {
               history.push("/"); setSelect("2")}} className="buttons">HIGIENE & BELEZA</button>
             <button onClick={() => {
-              history.push("/"); setSelect("3")}} className="buttons">MATERIAL DE CONTRUÇÃO & ELÉTRICO</button>
+              history.push("/"); setSelect("5")}} className="buttons">MATERIAL DE CONTRUÇÃO & ELÉTRICO</button>
             <button onClick={() => {
-              history.push("/"); setSelect("4")}} className="buttons">MATERIAL ESCOLAR & ESCRITÓRIO</button>
+              history.push("/"); setSelect("3")}} className="buttons">MATERIAL ESCOLAR & ESCRITÓRIO</button>
             <button onClick={() => {
-              history.push("/"); setSelect("5")}} className="buttons">PRODUTOS ALIMENTÍCIOS</button>
+              history.push("/"); setSelect("1")}} className="buttons">PRODUTOS ALIMENTÍCIOS</button>
           </div>
         </div>
       </AppBar>

@@ -7,53 +7,11 @@ import { useHistory } from "react-router-dom";
 
 
 function Card(props) {
-    const { product, user, loading, handleCarrinho, select, setProduct } = React.useContext(IndexContext);
+    const { product, user, loading, handleCarrinho, carrinho, setCarrinho, select, setProduct } = React.useContext(IndexContext);
     let history = useHistory();
     const productToShow = product ? product.filter(item => item?.categoria == select) : null
 
-    function decrease(index){
-
-        setProduct((a) => {
-            const qtd = parseInt(a[index].quantidade)
-
-
-            if(a[index].quantidade === 0) {
-                return([...a])
-            }
-            else{
-                a[index].quantidade=qtd - 1
-                return([...a])
-            }
-
-        })
-        // val -= 1
-        // document.getElementById('input').value = val;
-    }
-    
-    function increase(index){
-        setProduct((a) => {
-            const qtd = parseInt(a[index].quantidade)
-            a[index].quantidade=qtd + 1
-            return([...a])
-        })
-    }
-  
-
-    function verify(e){
-        if(!loading) {
-            if(!user){
-                return( 
-                    history.push("/login")
-                )
-            }
-            else{
-                console.log(e)  
-            }
-                
-        }
-    }
-
-    console.log(product?.length, select)
+    console.log(product, select)
 
     return (
         <>
@@ -61,29 +19,29 @@ function Card(props) {
         { !select || select === '0' ? product?.map((e, index) =>{
         return (
             <Paper className="cardProduto">
-            <div>
-                <Link to="/produtos"><img className="cardImg" src={e.urlImg}></img></Link>
-            </div>
-            <p><Link to="/produtos">{e.nomeProduto}</Link></p>
-            <div className="cardB2">
-                <button onClick={() => decrease(index)}>-</button>
-                <input id="input" min="0" type="number" value={e.quantidade} />
-                <button onClick={() => increase(index)}>+</button>
-            </div>
-        </Paper>
+                <div>
+                    <Link to="/produtos"><img className="cardImg" src={e.urlImg}></img></Link>
+                </div>
+                <p><Link to="/produtos">{e.nomeProduto}</Link></p>
+                <div className="cardB2">
+                    <button onClick={handleCarrinho}>-</button>
+                    <input id="input" min="0" max={e.quantidade} value={0} />
+                    <button onClick={handleCarrinho}>+</button>
+                </div>
+            </Paper>
         )})
- : productToShow?.map((e) =>{
+ : productToShow?.map((e,index) =>{
 
             return (
                 <Paper className="cardProduto">
                     <div>
-                        <Link to="/produtos"><img className="cardImg" src={e.urlImg}></img></Link>
-                    </div>
-                    <p><Link to="/produtos">{e.nomeProduto}</Link></p>
-                    <div className="cardB2">
-                        <button onClick={decrease}>-</button>
-                        <input id="input" min="0" type="number" value={e.quantidade}/>
-                        <button onClick={increase}>+</button>
+                            <Link to="/produtos"><img className="cardImg" src={e.urlImg}></img></Link>
+                        </div>
+                        <p><Link to="/produtos">{e.nomeProduto}</Link></p>
+                        <div className="cardB2">
+                        <button onClick={handleCarrinho}>-</button>
+                        <input id="input" min="0" max={e.quantidade} value={0} />
+                        <button onLick={handleCarrinho}>+</button>
                     </div>
                 </Paper>
             )

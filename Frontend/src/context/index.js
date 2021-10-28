@@ -3,10 +3,6 @@ import { useHistory } from "react-router-dom";
 import api from "../services/api";
 export const IndexContext = createContext();
 
-
-
-
-
 export default function IndexProvider({ children }) {
     const [user, setUser] = useState(null)
     const [produtos, setProdutos] = useState(null)
@@ -14,23 +10,9 @@ export default function IndexProvider({ children }) {
     const [redirect, setRedirect] = useState(false)
     const [loading, setLoading] = useState(true)
     const [select, setSelect] = useState(0)
+    const [carrinho, setCarrinho] = useState(null)
 
     let history = useHistory();
-
-      // const handleVerify = async () => {
-      //   if(res.data.status===200){
-      //     setLoading(false)
-      //     setRedirect(false)
-      //   }
-      //   else{
-      //     handleLogout()
-      //     setLoading(false)
-      //     setRedirect(true)
-      //     return(
-      //       window.replace.location
-      //     )
-      //   }
-      // }
 
     React.useEffect ( async() => {
       try{
@@ -65,8 +47,6 @@ export default function IndexProvider({ children }) {
         console.log(err)
       }
     }
-
-
 
     const handleLogin = async(dados) =>{
       try{
@@ -113,15 +93,16 @@ export default function IndexProvider({ children }) {
         }
     }
 
-    const handleCarrinho = async(user) => {
+    const handleCarrinho = async(product) => {
       try{
-        await api.post('/addcarrinho',user)
+        await api.post('/addcarrinho',product)
+        console.log(product)
       } catch(err){
         console.log(err);
       }
   }
 
-return (<IndexContext.Provider value={{handleLogin, handleCadastro, handleLogout, handleProduto, handleCarrinho, handleSearchUser, user, produtos, product, setProduct, redirect, loading, select, setSelect}}>
+return (<IndexContext.Provider value={{handleLogin, handleCadastro, handleLogout, handleProduto, handleCarrinho, handleSearchUser, setCarrinho, setProduct, setSelect, user, carrinho, produtos, product, redirect, loading, select}}>
     {children}
   </IndexContext.Provider>);
 }
