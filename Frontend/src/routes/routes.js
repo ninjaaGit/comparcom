@@ -10,6 +10,7 @@ import Carrinho from '../pages/cart/Carrinho';
 import Cadastro from '../pages/register/cadastro';
 import Login from '../pages/login/login';
 import Produtos from '../pages/admin/produtos/produtos';
+import ProdutoMain from '../pages/main produto/produto';
 import { IndexContext } from "../context/index";
 import PrivateRoute from "../components/privateRoute/PrivateRoute";
 
@@ -28,7 +29,9 @@ const {user, loading} = React.useContext(IndexContext);
            <PrivateRoute component = { Carrinho } path='/carrinho' />
            <Route component = { Cadastro } path ='/register' />
            <Route component = { Login } path='/login' />
-           <Route component = { Produtos } path='/produtos' />
+           <Route component = { Produtos } path='/addproduto' />
+           <Route component = { ProdutoMain } path='/produto' />
+
         </Switch>
        </BrowserRouter>
    )

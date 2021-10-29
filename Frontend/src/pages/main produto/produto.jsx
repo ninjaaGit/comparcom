@@ -1,29 +1,29 @@
 import './style.css';
-import { Link } from "react-router-dom";
-import Footer from '../../components/Footer/Footer'
-import { Redirect } from 'react-router-dom';
+import Header from "../../components/Header/Header";
+import React from 'react';
+import Card from "../../components/Cards/cardProduto/cardProduto";
 
-function Produto() {
-
-  return (
-    <>
-      <div className="produtoMain">
-        <h2 className="title"> Produto </h2>
-        <div className="produtoImg"></div>
-        <h2 className="detalhes"> Detalhes </h2>
-        <h3> Alface, tomate, brócolis, azeite e sal. </h3>
-        <h2 className="detalhes"> Adicionais </h2>
-        <div className="preco">
-          <h2> Preço </h2>
-          <h2> R$ 19,90 </h2>
+function ProdutoMain(props) {
+  
+    return (
+      <>
+      <Header/>
+        <div className="cardCarrinho3">
+        <img className="produtoImg" src={props?.location?.state?.msg.urlImg}></img>
+        <div className="fixed">
+          <h2 className="title"> {props?.location?.state?.msg.nomeProduto} </h2>
+          <h2 className="detalhes"> {props?.location?.state?.msg.descricao} </h2>
+          <div className="preco">
+            <h2>R$ {props?.location?.state?.msg.valor} </h2>
+          </div>
+          <button className="adicionarCarrinho">
+            Adicionar ao carrinho
+          </button>
+          </div>
         </div>
-        <Link to="/carrinho" className="adicionarCarrinho">
-          Adicionar ao carrinho
-        </Link>
-      </div>
-      <Footer/>
-    </>
-  );
+      <Card/>
+      </>
+    )
 }
 
-export default Produto;
+export default ProdutoMain;

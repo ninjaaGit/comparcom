@@ -6,6 +6,7 @@ import '../../static/App.scss'
 
 const Carrinho = (props) => {
   return (
+    
     <div>
       <div>
       <Header />

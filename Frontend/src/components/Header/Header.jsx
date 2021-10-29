@@ -10,7 +10,6 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { InputBase } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { IndexContext } from "../../context/index";
 import "./styles.scss";
@@ -18,16 +17,14 @@ import "./styles.scss";
 
 
 
-function Header(props) {
+function Header() {
   let history = useHistory();
   const {handleLogout, handleSearchUser, user, redirect, loading, select, setSelect} = React.useContext(IndexContext);
-  console.log(user)
   const desloga = async (event) => {
     event.preventDefault();
     handleLogout()
     window.location.reload(true)
   }
-  
   return (
     <div className="navbar">
       <AppBar position="static">
@@ -73,8 +70,6 @@ function Header(props) {
         </div>
       </AppBar>
     </div>
-
-
   );
 }
 
