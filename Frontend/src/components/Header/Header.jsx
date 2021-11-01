@@ -16,7 +16,7 @@ import "./styles.scss";
 
 function Header() {
   let history = useHistory();
-  const {handleLogout, user, setSelect} = React.useContext(IndexContext);
+  const { handleLogout, user, setSelect} = React.useContext(IndexContext);
 
   const handleSearchUser = async (event) => {
     event.preventDefault();
@@ -25,11 +25,12 @@ function Header() {
     }
   }
 
+
   return (
     <div className="navbar">
       <AppBar position="static">
         <Toolbar className="header">
-          <button onClick = {handleLogout}>Logout</button>
+          
           <a onClick = {() => history.push("/")}><LogoArcom className="title"></LogoArcom></a>
           <Paper component="form" className="input searchbar">
             <InputBase className="input" placeholder="Pesquisar mercadoria." />
@@ -41,9 +42,9 @@ function Header() {
             </IconButton>
           </Paper>
           <div>
-              <Button color="inherit" onClick = {handleSearchUser}>
+          {user? <button onClick = {handleLogout}>Logout</button> : <Button color="inherit" onClick = {handleSearchUser}>
                 <AccountBoxIcon></AccountBoxIcon>
-              </Button>
+              </Button>}
                 <Button color="inherit" onClick = {() => history.push("/carrinho")}>
                   <ShoppingCartIcon></ShoppingCartIcon>
                 </Button>

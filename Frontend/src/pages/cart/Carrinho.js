@@ -11,7 +11,10 @@ const Carrinho = () => {
   const { carrinho,product } = React.useContext(IndexContext);
   const [cart, setCart] = React.useState([]);
 
-
+  React.useEffect(() =>{
+    setCart(product.filter(e => e.id == carrinho.map(e => {return(e.id_produto)})))
+  },[carrinho])
+  
 
   return (
     <div>
@@ -19,7 +22,7 @@ const Carrinho = () => {
       <Header />
       </div>
         <main>
-          <Card produto={cart}/>
+          <Card produto={cart} css={"cardProduto"}/>
         </main>
       <Footer />
     </div>

@@ -90,6 +90,8 @@ ep.post("/register",  async (req, res) => {
 
 ep.get('/logout', function(req, res) { 
     res.clearCookie("access_token")
+    console.log("chegou no logout")
+    return res.json("deslogado")
 });
 
 ep.post("/login", async (req, res) => {
@@ -120,7 +122,6 @@ ep.post("/addcarrinho",verifyJWT, async (req, res) => {
     const userAdmin = (req.userAdmin)
     const {id_produto,metodo} = (req.body)
     console.log(id_produto,id_usuario)
-    if (userAdmin == true){
         let quantidade = 1
         console.log(id_produto, id_usuario, quantidade)
         const pesquisaCarrinho = await Carrinho.findOne({ where: {id_usuario,id_produto}  }).catch((err) =>{console.log(err);});
@@ -149,7 +150,7 @@ ep.post("/addcarrinho",verifyJWT, async (req, res) => {
             else if (metodo === false){
                 let quantidade  = pesquisaCarrinho.dataValues.quantidade -= 1
                 try {
-                    if(quantidade >= 1){
+                    if(quantidade >= 0){
                         await Carrinho.update({quantidade},{where: {id_usuario,id_produto}});
                         const resp = await Carrinho.findAll({ where: {id_usuario}})
                         return res.json(resp);
@@ -163,11 +164,8 @@ ep.post("/addcarrinho",verifyJWT, async (req, res) => {
                     return res.status(401).send('erro')
                 }
             }
-        }
-    }else{
-    return res
-    .status(401).send('Sem Permissao ze!')
-    }   
+        
+    }  
 })
 
 ep.get("/carrinho",verifyJWT, async (req, res) => {

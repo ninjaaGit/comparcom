@@ -8,7 +8,7 @@ function Produto() {
     return (
       <>
       <div className="produtoMain">
-        <Card produto={!select || select === '0' ? product : productToShow}/>
+        <Card css={"cardProduto"} produto={!select || select === '0' ? product : productToShow}/>
       </div>
       </>
     );

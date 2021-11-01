@@ -46,7 +46,7 @@ export default function IndexProvider({ children }) {
 
       }
 
-      getProduto  ()
+      getProduto()
       getUser()
       getCarrinho()
 
@@ -55,23 +55,22 @@ export default function IndexProvider({ children }) {
 
     React.useEffect(() =>{
       function getCarrinho(){
-        carrinho?.map((lista) => { 
-          if(product.filter(item => item?.id == lista.id_produto) != []){
-            return( product.filter(item => item?.id == lista.id_produto)[0].unidades = lista.quantidade )
-          }
-        })}
+        const TempProduct = product? [...product] : null
+        TempProduct?.map(item2 => {
+          carrinho?.map(item => {
+            if(item?.id_produto == item2?.id) {
+              item2.unidade = item.quantidade
+            }
+            
+           })
+        })
+       
+        setProduct(TempProduct)
+      }
       getCarrinho()
     },[carrinho])
 
-    const handleLogout = async() => {
-      try{
-        await api.get('/logout', {withCredentials: true})
-        setUser(null)
-      }
-      catch(err){
-        setUser(null)
-      }
-    }
+    
 
     const handleLogin = async(dados) =>{
       try{
@@ -94,6 +93,13 @@ export default function IndexProvider({ children }) {
         }
     }
 
+    const handleSearchUser = async (event) => {
+      event.preventDefault();
+      if(!user){
+          history.push('/login')
+      }
+    }
+
     const handleCadastro = async(user) => {
         try{
           const res = await api.post('/register',user)
@@ -102,6 +108,22 @@ export default function IndexProvider({ children }) {
         } catch(err){
           setUser(null)
         }
+    }
+
+    const handleLogout = async() => {
+      try{
+        await api.get('/logout', {withCredentials: true})
+        setUser(null)
+
+        console.log(" entrou no Logout")
+
+        window.location.reload(true)
+  
+      }
+      catch(err){
+        setUser(null)
+        console.log(err.response, "caiu no catch do Logout")
+      }
     }
 
     const handleCarrinho = async(e) => {
@@ -114,7 +136,7 @@ export default function IndexProvider({ children }) {
       }
     }
 
-return (<IndexContext.Provider value={{handleLogin, handleCadastro, handleLogout, handleProduto, handleCarrinho, setCarrinho, setProduct, setSelect, user, carrinho, product, loading, select}}>
+return (<IndexContext.Provider value={{handleSearchUser, handleLogin, handleCadastro, handleLogout, handleProduto, handleCarrinho, setCarrinho, setProduct, setSelect, setUser, user, carrinho, product, loading, select}}>
     {children}
   </IndexContext.Provider>);
 }
