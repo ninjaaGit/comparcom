@@ -14,15 +14,64 @@
     border-radius: 0.6rem !important;
     text-align: center;
     justify-content: space-around;
+
     & > img {
         border-radius: 2rem;
-        width: 100%;
-        height: 100%;
+        width: 5rem;
+        height: 5rem;
+        
     }
+}
+
+.cardCarrinho {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    height: 16rem;
+    border: solid 0.7px #dcdcdc;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    border-radius: 0.6rem !important;
+    text-align: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    margin-left: 5rem;
+    
+    & > div{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 15rem;
+    }
+
+    & > div > .cardImg {
+        border-radius: 2rem;
+        height: 15rem;
+        width: 15rem;
+        margin: auto;
+    }
+
+    & > aside{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1rem 0;
+        box-sizing: border-box;
+    }
+
 }
 
 .cardImg {
     width: 60%;
+}
+
+.cardImg2 {
+    width: 3rem !important;
+    height: 3rem !important;
+    top: -10% !important;
+    left: 96% !important;
+    position: relative;
 }
 
 .cardB2 {

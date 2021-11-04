@@ -1,5 +1,7 @@
 import React from 'react';
 import "../login/style.css";
+import CancelIcon from '@mui/icons-material/Cancel';
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -23,7 +25,7 @@ function Login() {
 
   return (
     <div className="login_body">
-      <button onClick = {() => history.push("/")}>Cancelar</button>
+      <Button color="inherit" onClick = {() => history.push("/")}><CancelIcon color="success"/></Button>
       <div className="login_main">
         <h1 className="login_title"> Compre Arcom </h1>
         <form className="loginForm" onSubmit={enviaForm}>

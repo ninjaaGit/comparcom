@@ -1,5 +1,15 @@
 .produtoMain {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: grid;
+    grid-gap: 3rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.nenhumProduto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titulo {
+    margin-bottom: 10%;
+    width: 100%;
 }

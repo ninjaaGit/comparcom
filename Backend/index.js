@@ -53,17 +53,25 @@ ep.get("/product", async (req, res) => {
     res.json(produtoCriado);
 })
 
-ep.post("/criarprod" , async (req, res) => {
+ep.post("/criarprod",verifyJWT,async (req, res) => {
     const {nomeProduto, valor, urlImg, descricao, quantidade, categoria} = req.body
-    const produtoCriado = await Produtos.findOne({ where: {nomeProduto}  }).catch((err) =>{console.log(err);});
-    if(produtoCriado){ 
+    const userAdmin = (req.userAdmin)
+    if(userAdmin){
+        const produtoCriado = await Produtos.findOne({ where: {nomeProduto}  }).catch((err) =>{console.log(err);});
+
+
+        if(produtoCriado){ 
+            return res.json({ message: "Este produto ja existe!"})
+        }
+    
+        else{
+        await Produtos.create({ nomeProduto, valor, urlImg, descricao, quantidade, categoria});
+            return res.json({nomeProduto,valor,descricao,quantidade,categoria})
+        }
+    }else{
         return res.json({ message: "Este produto ja existe!"})
     }
-
-    else{
-    await Produtos.create({ nomeProduto, valor, urlImg, descricao, quantidade, categoria});
-        return res.json({nomeProduto,valor,descricao,quantidade,categoria})
-    }
+    
 });
 
 ep.post("/register",  async (req, res) => {

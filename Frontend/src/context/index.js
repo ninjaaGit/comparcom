@@ -6,13 +6,15 @@ export const IndexContext = createContext();
 export default function IndexProvider({ children }) {
     let history = useHistory();
 
+    const [flag, setFlag] = useState(false)
     const [user, setUser] = useState(null)
     const [product, setProduct] = useState(null)
     const [loading, setLoading] = useState(true)
     const [select, setSelect] = useState(0)
-    const [carrinho, setCarrinho] = React.useState([]);
+    const [carrinho, setCarrinho] = React.useState([])
+    const [admin, setAdmin] = useState(null)
 
-    React.useEffect (() => {
+    React.useEffect (async () => {
       async function getProduto(){
       try{
         const res = await api.get('/product')
@@ -29,6 +31,7 @@ export default function IndexProvider({ children }) {
           const res = await api.get('/user', {withCredentials: true})
           setUser(res.data.message)
           setLoading(false)
+
         }
         catch(err){
           setLoading(false)
@@ -46,31 +49,49 @@ export default function IndexProvider({ children }) {
 
       }
 
-      getProduto()
-      getUser()
-      getCarrinho()
+      await getProduto()
+      await getUser()
+      await getCarrinho()
+      setFlag(!flag)
 
     },[])
 
 
-    React.useEffect(() =>{
-      function getCarrinho(){
+
+    React.useEffect (async () => {
+
+      async function updateCarrinho(){
+        const TempCarrinho = [];
         const TempProduct = product? [...product] : null
         TempProduct?.map(item2 => {
           carrinho?.map(item => {
             if(item?.id_produto == item2?.id) {
               item2.unidade = item.quantidade
+              TempCarrinho.push(item2)
             }
+
             
-           })
+          })
+          if (!item2.unidade) item2.unidade = 0   
         })
-       
+        setCarrinho(TempCarrinho)
         setProduct(TempProduct)
       }
-      getCarrinho()
-    },[carrinho])
+      updateCarrinho()
+    },[flag])
 
-    
+    React.useEffect (async () => {
+      async function checkAdmin(){
+        if(user?.nome === "Artur Gonzalez Luz"){
+          setAdmin(true)
+          console.log(admin)
+          console.log(user?.nome)
+        }
+        
+      }
+      checkAdmin()
+    })
+
 
     const handleLogin = async(dados) =>{
       try{
@@ -127,16 +148,25 @@ export default function IndexProvider({ children }) {
     }
 
     const handleCarrinho = async(e) => {
-      // console.log(e)
+      console.log(e)
       try{
         const res  = await api.post('/addcarrinho',e)
-        setCarrinho(res?.data)
+        const TempCarrinho = res?.data?.map(item => {
+          item.unidade = item.quantidade
+          return item
+        }
+          )
+
+        setCarrinho(TempCarrinho)
+        setFlag(!flag)
+
       } catch(err){
         console.log(err);
       }
     }
 
-return (<IndexContext.Provider value={{handleSearchUser, handleLogin, handleCadastro, handleLogout, handleProduto, handleCarrinho, setCarrinho, setProduct, setSelect, setUser, user, carrinho, product, loading, select}}>
+
+return (<IndexContext.Provider value={{handleSearchUser, handleLogin, handleCadastro, handleLogout, handleProduto, handleCarrinho, setCarrinho, setProduct, setSelect, setUser, admin, user, carrinho, product, loading, select}}>
     {children}
   </IndexContext.Provider>);
 }

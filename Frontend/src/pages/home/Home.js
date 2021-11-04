@@ -2,7 +2,6 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-// import Carrossel from "../../components/Carrossel/Carrossel"
 import "./styles.scss";
 import '../../static/App.scss'
 import Produto from '../../components/Produto/produto' 
@@ -14,7 +13,7 @@ const Home = () => {
       <Container>
         <main>
           <div>
-            <h2>Produtos</h2>
+            <h2 className="produtoShow">Produtos</h2>
             <div className="cardDiv">
               <Produto/>
             </div>

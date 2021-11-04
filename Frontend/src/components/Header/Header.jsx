@@ -8,6 +8,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { InputBase } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { IndexContext } from "../../context/index";
@@ -16,7 +18,7 @@ import "./styles.scss";
 
 function Header() {
   let history = useHistory();
-  const { handleLogout, user, setSelect} = React.useContext(IndexContext);
+  const { handleLogout, user, admin, setSelect} = React.useContext(IndexContext);
 
   const handleSearchUser = async (event) => {
     event.preventDefault();
@@ -24,8 +26,7 @@ function Header() {
         history.push('/login')
     }
   }
-
-
+  
   return (
     <div className="navbar">
       <AppBar position="static">
@@ -41,8 +42,11 @@ function Header() {
               <SearchIcon />
             </IconButton>
           </Paper>
+          
           <div>
-          {user? <button onClick = {handleLogout}>Logout</button> : <Button color="inherit" onClick = {handleSearchUser}>
+
+          {admin == true ? <Button color="inherit"><AddBusinessIcon onClick={() => history.push("/addproduto")} /></Button> : <></>}
+          {user? <Button color="inherit" onClick = {handleLogout}><LogoutIcon/></Button> : <Button color="inherit" onClick = {handleSearchUser}>
                 <AccountBoxIcon></AccountBoxIcon>
               </Button>}
                 <Button color="inherit" onClick = {() => history.push("/carrinho")}>

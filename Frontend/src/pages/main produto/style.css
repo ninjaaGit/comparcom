@@ -1,6 +1,7 @@
 .fixed {
     display: flex;
     flex-direction: column;
+    width: 50%;
 }
 
 .produtoImg {
@@ -10,7 +11,7 @@
     margin: 0.5rem 0;
     margin-right: 5%;
     margin-left: 5%;
-    box-shadow: 4px 4px 2px rgba(170, 170, 170, 0.25);
+    box-shadow: 4px 4px 2px #aaaaaa40;
     border-radius: 5px;
 }
 
@@ -22,8 +23,7 @@
     margin: 10% 0 0 0;
 }
 
-.preco {
-    
+.preco {   
     margin: 10% 10% 10% 0%;
     height: 5%;
     padding-bottom: 1rem;
