@@ -13,7 +13,8 @@
     box-shadow: 2px 2px 5px #aaaaaa;
     border-radius: 0.6rem !important;
     text-align: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
 
     & > img {
         border-radius: 2rem;
@@ -26,7 +27,7 @@
 .cardCarrinho {
     display: flex;
     flex-direction: row;
-    width: 60%;
+    width: 85%;
     height: 16rem;
     border: solid 0.7px #dcdcdc;
     box-shadow: 2px 2px 5px #aaaaaa;
@@ -34,7 +35,7 @@
     text-align: center;
     justify-content: space-between;
     margin-bottom: 2rem;
-    margin-left: 5rem;
+    margin-left: 7rem;
     
     & > div{
         display: flex;
@@ -52,12 +53,23 @@
 
     & > aside{
         display: flex;
+        width: 60%;
         flex-direction: column;
         height: 100%;
         justify-content: space-around;
-        align-items: center;
+        align-items: flex-start;
         padding: 1rem 0;
         box-sizing: border-box;
+        margin-left: 10%;
+
+        & > p{
+            text-align: left;
+            width: 100%;
+        }
+
+        & > .cardB2{
+            align-self: flex-start;
+        }
     }
 
 }
@@ -69,7 +81,7 @@
 .cardImg2 {
     width: 3rem !important;
     height: 3rem !important;
-    top: -10% !important;
+    top: -25px !important;
     left: 96% !important;
     position: relative;
 }

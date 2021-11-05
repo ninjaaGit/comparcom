@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import { IndexContext } from "../../context/index";
 
+
 function Card(props) {
     let history = useHistory();
 
@@ -72,6 +73,7 @@ function Card(props) {
                                         handleCarrinho(id_produto)
                                     }
                                     }}>+</button>
+
                             </div>
                         </aside>
                     </Paper>} </>

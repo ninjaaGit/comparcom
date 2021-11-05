@@ -44,7 +44,7 @@ function verifyJWT (req, res, next){
 ep.get("/user",verifyJWT, async (req, res) => {
     const id = (req.userJWT.id)
     const userWithCpf = await User.findOne({ where: {id}  }).catch((err) =>{console.log(err);});
-    res.json({ message: {nome:userWithCpf.dataValues.nome,rua:userWithCpf.dataValues.rua,bairro: userWithCpf.dataValues.bairro,numero:  userWithCpf.dataValues.numero}});
+    res.json({ message: {nome:userWithCpf.dataValues.nome,rua:userWithCpf.dataValues.rua,bairro: userWithCpf.dataValues.bairro,numero:  userWithCpf.dataValues.numero, cpf: userWithCpf.dataValues.cpf}});
     
 })
 

@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import Checkout from "../../components/Checkout/Checkout";
 import '../../static/App.scss'
+import '../cart/styles.scss'
 import {IndexContext} from '../../context/index'
 
 
@@ -23,8 +24,13 @@ const Carrinho = () => {
       <Header />
       </div>
         <main>
-          <Card produto={carrinho} className="cardCarrinho"/>
-          <Checkout/>
+          <div className="divAll">
+            <div className="divCard">
+            <h1 className="mi">Meus itens</h1>
+            <Card produto={carrinho} className="cardCarrinho"/>
+            </div>
+            <Checkout/>
+          </div>
         </main>
       <Footer />
     </div>
