@@ -5,8 +5,7 @@ import { NativeSelect } from '@mui/material';
 import "./styles.scss";
 
 function Checkout() {
-    const { handleLogout, user, admin, setSelect, carrinho} = React.useContext(IndexContext);
-    const [teste ,setTest] = React.useState(0)
+    const { user, carrinho} = React.useContext(IndexContext);
 
     
     
@@ -40,7 +39,7 @@ function Checkout() {
             </NativeSelect>
             <div className="espaco">
                 <p className="titles4">Subtotal</p>
-                <h3>R$ 10</h3>
+                <h3>R$ {(total).toFixed(2)}</h3>
             </div>
             <div className="espaco">
                 <p className="titles4">Juros</p>
@@ -48,7 +47,7 @@ function Checkout() {
             </div>
             <div className="espaco">
                 <p className="titles4">Valor Total</p>
-                <h3>R$ 10,99</h3>
+                <h3>R$ {(total + 0.99).toFixed(2)}</h3>
             </div>
             <button className="enviarPedido">
             Enviar Pedido

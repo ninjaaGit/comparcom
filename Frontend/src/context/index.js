@@ -85,7 +85,6 @@ export default function IndexProvider({ children }) {
         if(user?.nome === "Artur Gonzalez Luz"){
           setAdmin(true)
           console.log(admin)
-          console.log(user?.nome)
         }
         
       }

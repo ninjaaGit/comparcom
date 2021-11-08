@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import React from 'react';
 import {IndexContext} from '../../context/index'
+import CancelIcon from '@mui/icons-material/Cancel';
+import Button from "@material-ui/core/Button";
 
 function Cadastro() {
   let history = useHistory();
@@ -25,7 +27,7 @@ function Cadastro() {
 
   return (
     <div className="login_body">
-      <button onClick = {() => history.push("/")}>Cancelar</button>
+      <Button color="inherit" onClick = {() => history.push("/")}><CancelIcon color="error"/></Button>
       <div className="login_main">
         <form className="loginForm" onSubmit={enviaCadastro}>
           <input className="loginInput" name="nome" placeholder="Nome Completo" onChange={(e) => {setUser({...user,nome:e.target.value})}}  ></input>

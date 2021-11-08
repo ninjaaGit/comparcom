@@ -2,6 +2,8 @@ import "./style.scss";
 import { useHistory } from "react-router-dom";
 import React from 'react';
 import {IndexContext} from '../../../context/index'
+import CancelIcon from '@mui/icons-material/Cancel';
+import Button from "@material-ui/core/Button";
 
 function AdmProdutos() {
   let history = useHistory();
@@ -25,7 +27,7 @@ function AdmProdutos() {
 
   return (
     <div className="login_body">
-      <button onClick = {() => history.push("/")}>Cancelar</button>
+      <Button color="inherit" onClick = {() => history.push("/")}><CancelIcon color="error"/></Button>
       <div className="login_main">
         <form className="loginForm" onSubmit={enviaProduto}>
           <input className="loginInput" name="nomeProduto" placeholder="Nome do Produto" onChange={(e) => {setProdutos({...produtos,nomeProduto:e.target.value})}}  ></input>

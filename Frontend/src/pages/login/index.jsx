@@ -13,7 +13,7 @@ function Login() {
   const  [ senha, setSenha] = useState('');
   const  [cpf , setCpf]  = useState('');
 
-  const { logado, handleLogin } = React.useContext(IndexContext);
+  const { handleLogin } = React.useContext(IndexContext);
   
 
   const enviaForm = async (event) => {
@@ -25,7 +25,7 @@ function Login() {
 
   return (
     <div className="login_body">
-      <Button color="inherit" onClick = {() => history.push("/")}><CancelIcon color="success"/></Button>
+      <Button color="inherit" onClick = {() => history.push("/")}><CancelIcon color="error"/></Button>
       <div className="login_main">
         <h1 className="login_title"> Compre Arcom </h1>
         <form className="loginForm" onSubmit={enviaForm}>

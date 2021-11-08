@@ -158,7 +158,7 @@ ep.post("/addcarrinho",verifyJWT, async (req, res) => {
             else if (metodo === false){
                 let quantidade  = pesquisaCarrinho.dataValues.quantidade -= 1
                 try {
-                    if(quantidade >= 0){
+                    if(quantidade > 0){
                         await Carrinho.update({quantidade},{where: {id_usuario,id_produto}});
                         const resp = await Carrinho.findAll({ where: {id_usuario}})
                         return res.json(resp);
